@@ -1,7 +1,6 @@
 const { getSQLConnection } = require("../database/conexion");
 const queries = require("../database/queries.js");
 
-
 exports.getDatos = () => {
   return {
     status: "200",
