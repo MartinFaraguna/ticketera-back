@@ -36,3 +36,23 @@ exports.getDetalleID = async (id) => {
     throw Error("Error en detalleRepository - getDetalleID - " + error)
   }
 };
+
+
+
+exports.getUsers = async () => {
+  try {
+    const data = await detalleRepository.getUsers().mensaje;
+  } catch (error) {
+    console.log("Error en detalleRepository - getUsers - " + error)
+    throw Error("Error en detalleRepository - getUsers - " + error)
+  }
+};
+
+exports.getUserID = async (id) => {
+  try {
+    const data = await detalleRepository.getUserID(id).mensaje;
+  } catch (error) {
+    console.log("Error en detalleRepository - getUserID - " + error)
+    throw Error("Error en detalleRepository - getUserID - " + error)
+  }
+};

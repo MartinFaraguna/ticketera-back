@@ -75,3 +75,42 @@ exports.getDetalleID = async (req, res) => {
     throw Error("ERROR 500")
   }
 };
+
+
+
+exports.getUsers = async (req, res) => {
+  try {
+    const data = await detalleService.getUsers();
+
+    if (data.length === 0) {
+      return res.status(404).send(`No se ha encontrado ningún usuario`)
+    }
+    res.setHeader(CONTENT_TYPE, TYPE_JSON);
+    res.status(200).send(JSON.stringify(data));
+  } catch (error) {
+    res.status(500).send({
+      code: 500,
+      message: "Error al obtener los usuarios"
+    })
+    throw Error("ERROR 500")
+  }
+};
+
+exports.getUserID = async (req, res) => {
+  try {
+    const id = req.paramas.id;
+    const data = await detalleService.getUserID(id);
+
+    if (data.length === 0) {
+      return res.status(404).send(`No se ha encontrado el usuario con ID: ${id}`)
+    }
+    res.setHeader(CONTENT_TYPE, TYPE_JSON);
+    res.status(200).send(JSON.stringify(data));
+  } catch (error) {
+    res.status(500).send({
+      code: 500,
+      message: "Error al buscar el usuario con ID: " + id
+    })
+    throw Error("ERROR 500")
+  }
+};

@@ -15,7 +15,6 @@ exports.getAllTickets = async () => {
   } finally {
     pool.close()
   }
-  return { mensaje: 'Datos de prueba desde el repositorio :)' }; 
 };
 
 exports.getAllAsignedTickets = async () => { 
@@ -31,7 +30,6 @@ exports.getAllAsignedTickets = async () => {
   } finally {
     pool.close()
   }
-  return { mensaje: 'Datos de prueba desde el repositorio :)' }; 
 };
 
 exports.getAllUnasignedTickets = async () => { 
@@ -47,7 +45,6 @@ exports.getAllUnasignedTickets = async () => {
   } finally {
     pool.close()
   }
-  return { mensaje: 'Datos de prueba desde el repositorio :)' }; 
 };
 
 exports.getDetalleID = async (id) => { 
@@ -60,6 +57,39 @@ exports.getDetalleID = async (id) => {
   } catch (error) {
     console.log("Error en detalleRepository - getDetalleID - " + error)
     throw Error("Error en detalleRepository - getDetalleID - " + error)
+  } finally {
+    pool.close()
+  }
+};
+
+
+
+exports.getUsers = async () => { 
+  const pool = await getSQLConnection();
+  
+  try {
+    resultado = await pool.request().query("USE 'base de datos' SELECT * FROM 'tabla'");
+    console.table(resultado.recordset);
+    return resultado.recordset;
+  } catch (error) {
+    console.log("Error en detalleRepository - getUsers - " + error)
+    throw Error("Error en detalleRepository - getUsers - " + error)
+  } finally {
+    pool.close()
+  }
+};
+
+
+exports.getUserID = async (id) => { 
+  const pool = await getSQLConnection();
+  
+  try {
+    resultado = await pool.request().query("USE 'base de datos' SELECT * FROM 'tabla' WHERE ID = @ID");
+    console.table(resultado.recordset);
+    return resultado.recordset;
+  } catch (error) {
+    console.log("Error en detalleRepository - getUserID - " + error)
+    throw Error("Error en detalleRepository - getUserID - " + error)
   } finally {
     pool.close()
   }
