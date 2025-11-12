@@ -2,6 +2,7 @@ const { json } = require("express");
 const detalleService = require("../Services/detalleService.js");
 const { CONTENT_TYPE, TYPE_JSON } = require("../src/const.js").constantes;
 
+
 exports.getAllTickets = async (req, res) => {
   try {
     const data = await detalleService.getAllTickets();
@@ -20,10 +21,46 @@ exports.getAllTickets = async (req, res) => {
   }
 };
 
-exports.getDetalle = async (req, res) => {
+exports.getAllAsignedTickets = async (req, res) => {
+  try {
+    const data = await detalleService.getAllAsignedTickets();
+
+    if (data.length === 0) {
+      return res.status(404).send(`No se ha encontrado ningún ticket`)
+    }
+    res.setHeader(CONTENT_TYPE, TYPE_JSON);
+    res.status(200).send(JSON.stringify(data));
+  } catch (error) {
+    res.status(500).send({
+      code: 500,
+      message: "Error al obtener los tickets"
+    })
+    throw Error("ERROR 500")
+  }
+};
+
+exports.getAllUnasignedTickets = async (req, res) => {
+  try {
+    const data = await detalleService.getAllUnasignedTickets();
+
+    if (data.length === 0) {
+      return res.status(404).send(`No se ha encontrado ningún ticket`)
+    }
+    res.setHeader(CONTENT_TYPE, TYPE_JSON);
+    res.status(200).send(JSON.stringify(data));
+  } catch (error) {
+    res.status(500).send({
+      code: 500,
+      message: "Error al obtener los tickets"
+    })
+    throw Error("ERROR 500")
+  }
+};
+
+exports.getDetalleID = async (req, res) => {
   try {
     const id = req.paramas.id;
-    const data = await detalleService.getDetalle(id);
+    const data = await detalleService.getDetalleID(id);
 
     if (data.length === 0) {
       return res.status(404).send(`No se ha encontrado el ticket con ID: ${id}`)
