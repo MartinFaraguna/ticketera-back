@@ -76,6 +76,22 @@ exports.getDetalleID = async (req, res) => {
   }
 };
 
+exports.setTecnicoID = async (req, res) => {
+    try {
+        const { idTecnico, idTicket} = req.params
+        await frontendService.setTecnicoID(idTecnico, idTicket)
+
+        res.setHeader(CONTENT_TYPE, TYPE_JSON)
+        res.status(200).json()
+    } catch (error) {
+        res.status(500).send({
+            code: 500,
+            message: `Error al asignar el técnico con ID: ${id}`
+        })
+        throw Error("ERROR 500")
+    }
+};
+
 
 
 exports.getUsers = async (req, res) => {

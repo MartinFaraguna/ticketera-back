@@ -51,9 +51,30 @@ exports.getDetalleID = async (id) => {
   const pool = await getSQLConnection();
   
   try {
-    resultado = await pool.request().query("USE 'base de datos' SELECT * FROM 'tabla' WHERE ID = @ID");
+    resultado = await pool.request()
+    .input('ID', sql.Int, id)
+    .query("USE 'base de datos' SELECT * FROM 'tabla' WHERE ID = @ID");
     console.table(resultado.recordset);
-    return resultado.recordset;
+    return resultado.recordset[0];
+  } catch (error) {
+    console.log("Error en detalleRepository - getDetalleID - " + error)
+    throw Error("Error en detalleRepository - getDetalleID - " + error)
+  } finally {
+    pool.close()
+  }
+};
+
+exports.setTecnicoID = async (idTecnico, idTicket) => { 
+  const pool = await getSQLConnection();
+  const estado = "ASIGNADO"
+  
+  try {
+    resultado = await pool.request()
+    .input('IDTECNICO', sql.Int, idTecnico)
+    .input('ESTADO', sql.VarChar(50), estado)
+    .input('IDTICKET', sql.Int, idTicket)
+    .query("UPDATE tabla SET IDTECNICO = @IDTECNICO, ESTADO = @ESTADO WHERE ID = @IDTICKET");
+    console.table(resultado.recordset);
   } catch (error) {
     console.log("Error en detalleRepository - getDetalleID - " + error)
     throw Error("Error en detalleRepository - getDetalleID - " + error)
@@ -84,9 +105,11 @@ exports.getUserID = async (id) => {
   const pool = await getSQLConnection();
   
   try {
-    resultado = await pool.request().query("USE 'base de datos' SELECT * FROM 'tabla' WHERE ID = @ID");
+    resultado = await pool.request()
+    .input('ID', sql.Int, id)
+    .query("USE 'base de datos' SELECT * FROM 'tabla' WHERE ID = @ID");
     console.table(resultado.recordset);
-    return resultado.recordset;
+    return resultado.recordset[0];
   } catch (error) {
     console.log("Error en detalleRepository - getUserID - " + error)
     throw Error("Error en detalleRepository - getUserID - " + error)
