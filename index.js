@@ -14,6 +14,8 @@ const routerTickets = require('./Routers/routerTickets');
 app.use('/', routerPrueba);
 app.use('/tickets', routerTickets);
 
+app.use('/nuevo-ticket', ticketsController.crear);
+
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
