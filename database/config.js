@@ -9,7 +9,7 @@ const configDB = {
   server: process.env.SERVER_NAME,
   port: parseInt(process.env.PORT_DB),
   options: {
-    trustServerCertificate: true, // change to true for local dev / self-signed certs
+    trustServerCertificate: true,
   },
 };
 
