@@ -7,11 +7,11 @@ module.exports = {
   VALUES 
   (@titulo, @descripcion, @estado, @clienteId, @tecnicoId, @categoria, GETDATE());
   SELECT SCOPE_IDENTITY() AS id;
-  `
+  `,
   getFilter: `
     SELECT T.*, U.NOMBRE AS ClienteNombre, U.APELLIDO AS ClienteApellido
     FROM Tickets T
     JOIN Usuarios U ON T.CLIENTEID = U.ID
     WHERE T.CLIENTEID = @clienteID AND U.ROL = @rol
-  `
+  `,
 };
