@@ -1,5 +1,6 @@
 const { getSQLConnection } = require("../database/conexion");
 const queries = require("../database/queries.js");
+const sql = require("mssql");
 
 exports.getTicketsRepository = async () => {
   console.log("Entrando en SQL REPOSITORY - getTicketsRepository - ");
