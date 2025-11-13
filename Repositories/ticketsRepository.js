@@ -13,4 +13,34 @@ exports.getTicketsRepository = async () => {
   } finally {
     pool.close();
   }
+
+};
+
+
+
+
+
+
+
+
+
+//Filtrado
+
+exports.getFilter = async (clienteID, rol) => {
+  
+
+  const pool = await getSQLConnection();
+  try {
+    const resultado = await pool
+      .request()
+      .input("clienteID", clienteID)
+      .input("rol", rol)
+      .query(queries.getFilter);
+    return resultado.recordset;
+  } catch (error) {
+   
+    throw error;
+  } finally {
+    pool.close();
+  }
 };
