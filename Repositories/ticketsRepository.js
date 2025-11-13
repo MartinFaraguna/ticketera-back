@@ -16,16 +16,32 @@ exports.getTicketsRepository = async () => {
 
 };
 
+exports.crearTicket = async (ticket) => {
 
+  console.log("Entrando en SQL REPOSITORY - crearTicket - ");
+  const pool = await getSQLConnection();
 
+  try {
+    const resultado = await pool.request()
+      .input('titulo', sql.VarChar, ticket.titulo)
+      .input('descripcion', sql.Text, ticket.descripcion)
+      .input('estado', sql.VarChar, ticket.estado)
+      .input('clienteId', sql.Int, ticket.clienteId)
+      .input('tecnicoId', sql.Int, ticket.tecnicoId)
+      .input('categoria', sql.VarChar, ticket.categoria)
+      .query(queries.crearTicket);
 
+    return resultado.recordset[0];
 
-
-
-
+  } catch (error) {
+    console.log("Error en SQL REPOSITORY - crearTicket - " + error);
+    throw Error("Error en SQL REPOSITORY - crearTicket - " + error);
+  } finally {
+    pool.close();
+  }
+};
 
 //Filtrado
-
 exports.getFilter = async (clienteID, rol) => {
   
 

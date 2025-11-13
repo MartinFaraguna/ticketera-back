@@ -1,1 +1,60 @@
-PUT http://localhost:3000/main/dashboard-soporte/detalle/tecnico/1/7
+### 
+GET http://localhost:3000/users
+
+
+
+### 
+POST http://localhost:3000/nuevo-ticket
+Content-Type: application/json
+
+{
+  "titulo": "Conexión lenta en la oficina",
+  "descripcion": "La velocidad de internet está muy lenta desde hace una semana. Apenas puedo cargar páginas web.",
+  "estado": "PENDIENTE",
+  "clienteID": 1,
+  "tecnicoID": null,
+  "categoria": "RED"
+}
+
+###
+
+### 
+POST http://localhost:3000/nuevo-ticket
+Content-Type: application/json
+
+{
+  "titulo": "Mouse inalámbrico no funciona",
+  "descripcion": "El mouse inalámbrico dejó de responder. Ya cambié las pilas pero sigue sin funcionar.",
+  "estado": "ASIGNADO",
+  "clienteID": 2,
+  "tecnicoID": 5,
+  "categoria": "HARDWARE"
+}
+
+###
+
+###
+POST http://localhost:3000/nuevo-ticket
+Content-Type: application/json
+
+{
+  "titulo": "Outlook no envía correos",
+  "descripcion": "Cuando intento enviar un correo desde Outlook, se queda en la bandeja de salida y nunca se envía.",
+  "estado": "PENDIENTE",
+  "clienteID": 3,
+  "tecnicoID": null,
+  "categoria": "SOFTWARE"
+}
+
+###
+
+###
+POST http://localhost:3000/nuevo-ticket
+Content-Type: application/json
+
+{
+  "titulo": "Pantalla parpadea constantemente",
+  "descripcion": "Mi monitor parpadea cada 5 segundos aproximadamente. Es muy molesto para trabajar.",
+  "clienteID": 4,
+  "categoria": "HARDWARE"
+}

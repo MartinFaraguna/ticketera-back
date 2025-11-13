@@ -19,6 +19,8 @@ app.use('/tickets', routerTickets);
 app.use('/main/dashboard-soporte/detalle', routerDetalle);
 
 
+app.use('/nuevo-ticket', ticketsController.crear);
+
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
