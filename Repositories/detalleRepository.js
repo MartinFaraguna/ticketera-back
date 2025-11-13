@@ -1,12 +1,12 @@
 const { getSQLConnection } = require('../database/conexion');
-const sql = requiere('mssql');
+const sql = require('mssql');
 
 
 exports.getAllTickets = async () => { 
   const pool = await getSQLConnection();
   
   try {
-    resultado = await pool.request().query("USE 'base de datos' SELECT * FROM 'tabla'");
+    resultado = await pool.request().query("SELECT * FROM Tickets");
     console.table(resultado.recordset);
     return resultado.recordset;
   } catch (error) {
@@ -21,7 +21,7 @@ exports.getAllAsignedTickets = async () => {
   const pool = await getSQLConnection();
   
   try {
-    resultado = await pool.request().query("USE 'base de datos' SELECT * FROM 'tabla' WHERE fechaAsignacion IS NOT NULL");
+    resultado = await pool.request().query("SELECT * FROM Tickets WHERE fechaAsignacion IS NOT NULL");
     console.table(resultado.recordset);
     return resultado.recordset;
   } catch (error) {
@@ -36,7 +36,7 @@ exports.getAllUnasignedTickets = async () => {
   const pool = await getSQLConnection();
   
   try {
-    resultado = await pool.request().query("USE 'base de datos' SELECT * FROM 'tabla' WHERE fechaAsignacion IS NULL");
+    resultado = await pool.request().query("SELECT * FROM Tickets WHERE fechaAsignacion IS NULL");
     console.table(resultado.recordset);
     return resultado.recordset;
   } catch (error) {
@@ -53,7 +53,7 @@ exports.getDetalleID = async (id) => {
   try {
     resultado = await pool.request()
     .input('ID', sql.Int, id)
-    .query("USE 'base de datos' SELECT * FROM 'tabla' WHERE ID = @ID");
+    .query("SELECT * FROM Tickets WHERE ID = @ID");
     console.table(resultado.recordset);
     return resultado.recordset[0];
   } catch (error) {
@@ -70,10 +70,10 @@ exports.setTecnicoID = async (idTecnico, idTicket) => {
   
   try {
     resultado = await pool.request()
-    .input('IDTECNICO', sql.Int, idTecnico)
+    .input('TECNICOID', sql.Int, idTecnico)
     .input('ESTADO', sql.VarChar(50), estado)
     .input('IDTICKET', sql.Int, idTicket)
-    .query("UPDATE tabla SET IDTECNICO = @IDTECNICO, ESTADO = @ESTADO WHERE ID = @IDTICKET");
+    .query("UPDATE Tickets SET TECNICOID = @TECNICOID, ESTADO = @ESTADO WHERE ID = @IDTICKET");
     console.table(resultado.recordset);
   } catch (error) {
     console.log("Error en detalleRepository - getDetalleID - " + error)
@@ -89,7 +89,7 @@ exports.getUsers = async () => {
   const pool = await getSQLConnection();
   
   try {
-    resultado = await pool.request().query("USE 'base de datos' SELECT * FROM 'tabla'");
+    resultado = await pool.request().query("SELECT * FROM Usuarios");
     console.table(resultado.recordset);
     return resultado.recordset;
   } catch (error) {
@@ -107,7 +107,7 @@ exports.getUserID = async (id) => {
   try {
     resultado = await pool.request()
     .input('ID', sql.Int, id)
-    .query("USE 'base de datos' SELECT * FROM 'tabla' WHERE ID = @ID");
+    .query("SELECT * FROM Usuarios WHERE ID = @ID");
     console.table(resultado.recordset);
     return resultado.recordset[0];
   } catch (error) {

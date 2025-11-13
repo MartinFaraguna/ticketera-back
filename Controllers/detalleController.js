@@ -59,7 +59,7 @@ exports.getAllUnasignedTickets = async (req, res) => {
 
 exports.getDetalleID = async (req, res) => {
   try {
-    const id = req.paramas.id;
+    const id = req.params.id;
     const data = await detalleService.getDetalleID(id);
 
     if (data.length === 0) {
@@ -79,14 +79,14 @@ exports.getDetalleID = async (req, res) => {
 exports.setTecnicoID = async (req, res) => {
     try {
         const { idTecnico, idTicket} = req.params
-        await frontendService.setTecnicoID(idTecnico, idTicket)
+        await detalleService.setTecnicoID(idTecnico, idTicket)
 
         res.setHeader(CONTENT_TYPE, TYPE_JSON)
         res.status(200).json()
     } catch (error) {
         res.status(500).send({
             code: 500,
-            message: `Error al asignar el técnico con ID: ${id}`
+            message: `Error al asignar el técnico con ID`
         })
         throw Error("ERROR 500")
     }
@@ -113,8 +113,9 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.getUserID = async (req, res) => {
+  let id;
   try {
-    const id = req.paramas.id;
+    id = req.params.id;
     const data = await detalleService.getUserID(id);
 
     if (data.length === 0) {
