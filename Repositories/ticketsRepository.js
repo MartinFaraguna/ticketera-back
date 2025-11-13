@@ -31,7 +31,7 @@ exports.crearTicket = async (ticket) => {
       .query(queries.crearTicket);
 
     return resultado.recordset[0];
-    
+
   } catch (error) {
     console.log("Error en SQL REPOSITORY - crearTicket - " + error);
     throw Error("Error en SQL REPOSITORY - crearTicket - " + error);
